@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Для тебя 💖</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(180deg, #ff4e8a, #ff9ecf);
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 15px;
+}
+
+.container {
+    width: 100%;
+    max-width: 360px;
+    padding: 25px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 28px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+h1 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 15px;
+    margin-bottom: 18px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 50px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.open-btn {
+    background: white;
+    color: #ff4e8a;
+}
+
+.row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.never {
+    background: #ff6b81;
+    color: white;
+    flex: 1;
+}
+
+.soon {
+    background: white;
+    color: #ff4e8a;
+    flex: 1;
+}
+
+.hidden {
+    display: none;
+}
+
+.message {
+    margin-top: 15px;
+}
+
+.trash {
+    position: fixed;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 50px;
+    transition: 0.5s;
+}
+
+.trash.show {
+    bottom: 20px;
+}
+
+.fall {
+    animation: fall 1s forwards ease-in;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(400px) rotate(90deg);
+        opacity: 0;
+    }
+}
+
+.heart {
+    position: absolute;
+    bottom: -20px;
+    animation: rise 5s linear forwards;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+@keyframes rise {
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>💌 У меня для тебя кое-что...</h1>
+    <p>Нажми ниже 💖</p>
+
+    <button class="open-btn" onclick="openCard()">Открыть</button>
+
+    <div id="loveText" class="hidden message">
+        ❤️ У тебя самые красивые глаза, которые я видел в своей жизни ❤️
+    </div>
+
+    <div id="questionBlock" class="hidden message">
+        <p style="font-size:17px;">Погуляем? 💖</p>
+
+        <div class="row">
+            <button id="neverBtn" class="never">Никогда 😢</button>
+            <button class="soon" onclick="sayYes()">Скоро 😏</button>
+        </div>
+
+        <div id="yesText" class="hidden message">
+            ✨ Тогда договорились… буду ждать, давай погуляем в двоем как в первый раз паже💕
+        </div>
+    </div>
+</div>
+
+<div id="trash" class="trash">🗑</div>
+
+<script>
+function openCard() {
+    document.getElementById("loveText").classList.remove("hidden");
+    document.getElementById("questionBlock").classList.remove("hidden");
+}
+
+function sayYes() {
+    document.getElementById("yesText").classList.remove("hidden");
+}
+
+const neverBtn = document.getElementById("neverBtn");
+const trash = document.getElementById("trash");
+
+neverBtn.addEventListener("click", () => {
+    trash.classList.add("show");
+    neverBtn.classList.add("fall");
+
+    setTimeout(() => {
+        neverBtn.style.display = "none";
+    }, 900);
+});
+
+// Летающие сердечки
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 15 + 15) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+}, 500);
+</script>
+
+</body>
+</html>
